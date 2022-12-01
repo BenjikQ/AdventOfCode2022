@@ -14,7 +14,7 @@
     return {};
 }
 
-[[nodiscard]] int maxCalories(std::istream &is) {
+[[nodiscard]] int maxCalories(std::istream &is, int n) {
     std::vector<int> v;
     int sum{};
     std::string s;
@@ -27,5 +27,6 @@
         }
     }
     v.emplace_back(sum);
-    return ranges::max(v);
+    ranges::sort(v, std::greater{});
+    return ranges::accumulate(v | ranges::view::take(n), 0);
 }
