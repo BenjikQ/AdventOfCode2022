@@ -1,6 +1,7 @@
 #include "day01_lib.hpp"
 
 #include <charconv>
+#include <iterator>
 #include <optional>
 #include <string>
 #include <string_view>
@@ -15,25 +16,25 @@
 }
 
 [[nodiscard]] std::vector<std::vector<int>> readData(std::istream &is) {
-    std::vector<std::vector<int>> data{};
-    std::vector<int> values;
-    std::string s;
-    while (std::getline(is, s)) {
-        if (s.empty()) {
-            data.push_back(values);
-            values.clear();
-        } else {
-            values.emplace_back(*toInt(s));
-        }
-    }
-    data.push_back(values);
+    std::string input{ std::istreambuf_iterator<char>{ is }, {} };
+    constexpr std::string_view delim{"\n\n"};
+    auto data = input
+            | ranges::view::split(delim)
+            | ranges::view::transform([](auto&& r) { return r | ranges::view::split('\n'); })
+            | ranges::view::transform([](auto&& r) {
+                return r | ranges::view::transform([](auto&& s) {
+                    return *toInt(s | ranges::to<std::string>);
+                });
+            })
+            | ranges::to<std::vector<std::vector<int>>>;
+
     return data;
 }
 
 [[nodiscard]] int maxCalories(const std::vector<std::vector<int>>& data, int n) {
-    auto sumOfCalories = data | ranges::view::transform([](const auto& v) {
-        return ranges::accumulate(v, 0);
-    }) | ranges::to<std::vector>;
+    auto sumOfCalories = data
+            | ranges::view::transform([](auto&& v) { return ranges::accumulate(v, 0); })
+            | ranges::to<std::vector>;
     ranges::partial_sort(sumOfCalories, std::next(std::begin(sumOfCalories), n), std::greater{});
     return ranges::accumulate(sumOfCalories | ranges::view::take(n), 0);
 }
