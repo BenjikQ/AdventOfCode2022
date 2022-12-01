@@ -36,7 +36,8 @@ TEST_CASE( "Part 1", "[Day 01]" ) {
     }));
 
     std::stringstream ss{ input };
-    CHECK( maxCalories(ss, 1) == expected );
+    const auto data = readData(ss);
+    CHECK( maxCalories(data, 1) == expected );
 }
 
 TEST_CASE( "Part 2", "[Day 01]" ) {
@@ -70,5 +71,6 @@ TEST_CASE( "Part 2", "[Day 01]" ) {
         }));
 
     std::stringstream ss{ input };
-    CHECK( maxCalories(ss, n) == expected );
+    const auto data = readData(ss);
+    CHECK( maxCalories(data, n) == expected );
 }

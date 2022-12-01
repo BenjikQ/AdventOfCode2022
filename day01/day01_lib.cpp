@@ -14,19 +14,26 @@
     return {};
 }
 
-[[nodiscard]] int maxCalories(std::istream &is, int n) {
-    std::vector<int> v;
-    int sum{};
+[[nodiscard]] std::vector<std::vector<int>> readData(std::istream &is) {
+    std::vector<std::vector<int>> data{};
+    std::vector<int> values;
     std::string s;
     while (std::getline(is, s)) {
         if (s.empty()) {
-            v.emplace_back(sum);
-            sum = 0;
+            data.push_back(values);
+            values.clear();
         } else {
-            sum += *toInt(s);
+            values.emplace_back(*toInt(s));
         }
     }
-    v.emplace_back(sum);
-    ranges::sort(v, std::greater{});
-    return ranges::accumulate(v | ranges::view::take(n), 0);
+    data.push_back(values);
+    return data;
+}
+
+[[nodiscard]] int maxCalories(const std::vector<std::vector<int>>& data, int n) {
+    auto sumOfCalories = data | ranges::view::transform([](const auto& v) {
+        return ranges::accumulate(v, 0);
+    }) | ranges::to<std::vector>;
+    ranges::partial_sort(sumOfCalories, std::next(std::begin(sumOfCalories), n), std::greater{});
+    return ranges::accumulate(sumOfCalories | ranges::view::take(n), 0);
 }

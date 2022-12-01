@@ -20,9 +20,7 @@ int main(int argc, char* argv[]) {
         return 2;
     }
 
-    fmt::print("Day 1 | part 1: {}\n", maxCalories(input, 1));
-
-    input.close();
-    input.open(argv[1]);
-    fmt::print("Day 1 | part 2: {}\n", maxCalories(input, 3));
+    const auto data = readData(input);
+    fmt::print("Day 1 | part 1: {}\n", maxCalories(data, 1));
+    fmt::print("Day 1 | part 2: {}\n", maxCalories(data, 3));
 }
