@@ -21,5 +21,6 @@ int main(int argc, char* argv[]) {
     }
 
     const auto data = readData(input);
-    fmt::print("Day 2 | part 1: {}\n", calculateScore(data));
+    fmt::print("Day 2 | part 1: {}\n", part1::calculateScore(data));
+    fmt::print("Day 2 | part 2: {}\n", part2::calculateScore(data));
 }

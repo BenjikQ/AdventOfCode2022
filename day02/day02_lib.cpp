@@ -25,6 +25,12 @@ enum class Result {
     Win = 6,
 };
 
+static const std::unordered_map<char, Result> results{
+    { 'X', Result::Lose },
+    { 'Y', Result::Draw },
+    { 'Z', Result::Win },
+};
+
 [[nodiscard]] Result result(Shape opponent, Shape player) {
     if (opponent == player) return Result::Draw;
 
@@ -38,6 +44,18 @@ enum class Result {
     if (opponent == Shape::Scissors && player == Shape::Paper) return Result::Lose;
 }
 
+[[nodiscard]] Shape shape(Shape opponent, Result result) {
+    if (result == Result::Draw) return opponent;
+
+    if (result == Result::Lose && opponent == Shape::Rock) return Shape::Scissors;
+    if (result == Result::Lose && opponent == Shape::Paper) return Shape::Rock;
+    if (result == Result::Lose && opponent == Shape::Scissors) return Shape::Paper;
+
+    if (result == Result::Win && opponent == Shape::Rock) return Shape::Paper;
+    if (result == Result::Win && opponent == Shape::Paper) return Shape::Scissors;
+    if (result == Result::Win && opponent == Shape::Scissors) return Shape::Rock;
+}
+
 [[nodiscard]] std::vector<std::pair<char, char>> readData(std::istream& is) {
     std::vector<std::pair<char, char>> data{};
     char a, b;
@@ -47,12 +65,22 @@ enum class Result {
     return data;
 }
 
-[[nodiscard]] int calculateScore(const std::vector<std::pair<char, char>>& data) {
+[[nodiscard]] int part1::calculateScore(const std::vector<std::pair<char, char>>& data) {
     auto rng = data
             | ranges::view::transform([](auto&& r) {
                 const auto opponent = shapes.at(r.first);
                 const auto player = shapes.at(r.second);
                 return static_cast<int>(result(opponent, player)) + static_cast<int>(player);
             });
+    return ranges::accumulate(rng, 0);
+}
+
+[[nodiscard]] int part2::calculateScore(const std::vector<std::pair<char, char>>& data) {
+    auto rng = data
+               | ranges::view::transform([](auto&& r) {
+        const auto opponent = shapes.at(r.first);
+        const auto result = results.at(r.second);
+        return static_cast<int>(result) + static_cast<int>(shape(opponent, result));
+    });
     return ranges::accumulate(rng, 0);
 }

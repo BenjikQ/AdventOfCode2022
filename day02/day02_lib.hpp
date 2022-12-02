@@ -6,6 +6,13 @@
 #include <vector>
 
 [[nodiscard]] std::vector<std::pair<char, char>> readData(std::istream& is);
-[[nodiscard]] int calculateScore(const std::vector<std::pair<char, char>>& data);
+
+namespace part1 {
+    [[nodiscard]] int calculateScore(const std::vector<std::pair<char, char>>& data);
+}
+
+namespace part2 {
+    [[nodiscard]] int calculateScore(const std::vector<std::pair<char, char>>& data);
+}
 
 #endif // ADVENTOFCODE2022_DAY02_LIB_HPP

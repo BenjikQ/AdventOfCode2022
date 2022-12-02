@@ -22,5 +22,26 @@ TEST_CASE( "Part 1", "[Day 02]" ) {
 
     std::stringstream ss{ input };
     const auto data = readData(ss);
-    CHECK( calculateScore(data) == expected );
+    CHECK( part1::calculateScore(data) == expected );
+}
+
+TEST_CASE( "Part 2", "[Day 02]" ) {
+    auto [input, expected] = GENERATE(table<std::string, int>({
+        { "A X", 3 + 0 },
+        { "A Y", 1 + 3 },
+        { "A Z", 2 + 6 },
+        { "B X", 1 + 0 },
+        { "B Y", 2 + 3 },
+        { "B Z", 3 + 6 },
+        { "C X", 2 + 0 },
+        { "C Y", 3 + 3 },
+        { "C Z", 1 + 6 },
+        { "A Y\n"
+          "B X\n"
+          "C Z", 4 + 1 + 7 },
+    }));
+
+    std::stringstream ss{ input };
+    const auto data = readData(ss);
+    CHECK( part2::calculateScore(data) == expected );
 }
