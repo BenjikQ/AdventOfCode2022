@@ -21,5 +21,6 @@ int main(int argc, char* argv[]) {
     }
 
     const auto data = readData(input);
-    fmt::print("Day 3 | part 1: {}\n", sumOfPriorities(data));
+    fmt::print("Day 3 | part 1: {}\n", part1::sumOfPriorities(data));
+    fmt::print("Day 3 | part 2: {}\n", part2::sumOfPriorities(data));
 }

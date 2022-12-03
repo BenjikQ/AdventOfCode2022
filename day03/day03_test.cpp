@@ -16,10 +16,31 @@ TEST_CASE( "Part 1", "[Day 03]" ) {
           "PmmdzqPrVvPwwTWBwg\n"
           "wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn\n"
           "ttgJtRGJQctTZtZT\n"
-          "CrZsJsPPZsGzwwsLwLmpwMDw\n", 16 + 38 + 42 + 22 + 20 + 19 },
+          "CrZsJsPPZsGzwwsLwLmpwMDw", 16 + 38 + 42 + 22 + 20 + 19 },
     }));
 
     std::stringstream ss{ input };
     const auto data = readData(ss);
-    CHECK( sumOfPriorities(data) == expected );
+    CHECK( part1::sumOfPriorities(data) == expected );
+}
+
+TEST_CASE( "Part 2", "[Day 03]" ) {
+    auto [input, expected] = GENERATE(table<std::string, int>({
+        { "a\n"
+          "a\n"
+          "a", 1 },
+        { "abC\n"
+          "Ccxde\n"
+          "XDCf", 29 },
+        { "vJrwpWtwJgWrhcsFMMfFFhFp\n"
+          "jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL\n"
+          "PmmdzqPrVvPwwTWBwg\n"
+          "wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn\n"
+          "ttgJtRGJQctTZtZT\n"
+          "CrZsJsPPZsGzwwsLwLmpwMDw", 18 + 52 },
+    }));
+
+    std::stringstream ss{ input };
+    const auto data = readData(ss);
+    CHECK( part2::sumOfPriorities(data) == expected );
 }
