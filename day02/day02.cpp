@@ -5,7 +5,7 @@
 #include <fmt/core.h>
 
 void help() {
-    fmt::print("Usage: day01 <input_file>");
+    fmt::print("Usage: day02 <input_file>");
 }
 
 int main(int argc, char* argv[]) {
