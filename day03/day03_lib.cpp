@@ -5,8 +5,6 @@
 
 #include <range/v3/all.hpp>
 
-#include <iostream>
-
 [[nodiscard]] std::vector<std::string> readData(std::istream& is) {
     std::vector<std::string> data{};
     std::string s;
