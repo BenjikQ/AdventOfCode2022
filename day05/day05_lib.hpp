@@ -15,7 +15,15 @@ struct Command {
 using Data = std::pair<std::vector<std::stack<char>>, std::vector<Command>>;
 
 [[nodiscard]] Data readData(std::istream& is);
-[[nodiscard]] std::string moveCrates(const Data& data);
+
+namespace part1 {
+    [[nodiscard]] std::string moveCrates(const Data& data);
+}
+
+namespace part2 {
+    [[nodiscard]] std::string moveCrates(const Data& data);
+}
+
 
 
 #endif // ADVENTOFCODE2022_DAY02_LIB_HPP

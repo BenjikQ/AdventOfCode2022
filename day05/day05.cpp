@@ -21,5 +21,6 @@ int main(int argc, char* argv[]) {
     }
 
     const auto data = readData(input);
-    fmt::print("Day 5 | part 1: {}\n", moveCrates(data));
+    fmt::print("Day 5 | part 1: {}\n", part1::moveCrates(data));
+    fmt::print("Day 5 | part 2: {}\n", part2::moveCrates(data));
 }

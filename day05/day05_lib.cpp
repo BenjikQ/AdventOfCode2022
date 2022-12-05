@@ -54,15 +54,41 @@ using namespace std::string_literals;
     return { stacks, commands };
 }
 
-void moveCrate(std::stack<char>& from, std::stack<char>& to, int amount) {
-    while (amount--) {
-        const auto top = from.top();
-        from.pop();
-        to.push(top);
+namespace part1 {
+    void moveCrate(std::stack<char>& from, std::stack<char>& to, int amount) {
+        while (amount--) {
+            const auto top = from.top();
+            from.pop();
+            to.push(top);
+        }
     }
 }
 
-std::string moveCrates(const Data& data) {
+std::string part1::moveCrates(const Data& data) {
+    auto [stacks, commands] = data;
+    for (const auto& command : commands) {
+        moveCrate(stacks[command.from], stacks[command.to], command.amount);
+    }
+    auto rng = stacks | ranges::view::transform([](const auto& stack) { return stack.top(); });
+    return ranges::accumulate(rng, ""s);
+}
+
+namespace part2 {
+    void moveCrate(std::stack<char>& from, std::stack<char>& to, int amount) {
+        std::vector<char> elements;
+        while (amount--) {
+            const auto top = from.top();
+            from.pop();
+            elements.push_back(top);
+        }
+
+        for (auto element : elements | ranges::view::reverse) {
+            to.push(element);
+        }
+    }
+}
+
+std::string part2::moveCrates(const Data &data) {
     auto [stacks, commands] = data;
     for (const auto& command : commands) {
         moveCrate(stacks[command.from], stacks[command.to], command.amount);

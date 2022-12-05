@@ -30,5 +30,23 @@ TEST_CASE( "Part 1", "[Day 05]" ) {
 
     std::stringstream ss{ input };
     const auto data = readData(ss);
-    CHECK( moveCrates(data) == expected );
+    CHECK( part1::moveCrates(data) == expected );
+}
+
+TEST_CASE( "Part 2", "[Day 05]" ) {
+    auto [input, expected] = GENERATE(table<std::string, std::string>({
+          { "    [D]    \n"
+            "[N] [C]    \n"
+            "[Z] [M] [P]\n"
+            " 1   2   3 \n"
+            "\n"
+            "move 1 from 2 to 1\n"
+            "move 3 from 1 to 3\n"
+            "move 2 from 2 to 1\n"
+            "move 1 from 1 to 2\n", "MCD" },
+  }));
+
+    std::stringstream ss{ input };
+    const auto data = readData(ss);
+    CHECK( part2::moveCrates(data) == expected );
 }
