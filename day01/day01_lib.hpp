@@ -4,7 +4,9 @@
 #include <istream>
 #include <vector>
 
-[[nodiscard]] std::vector<std::vector<int>> readData(std::istream& is);
-[[nodiscard]] int maxCalories(const std::vector<std::vector<int>>& data, int n);
+using Data = std::vector<std::vector<int>>;
+
+[[nodiscard]] Data readData(std::istream& is);
+[[nodiscard]] int sumMaxCalories(const Data& data, int n);
 
 #endif // ADVENTOFCODE2022_DAY01_LIB_HPP

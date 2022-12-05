@@ -5,7 +5,7 @@
 #include <fmt/core.h>
 
 void help() {
-    fmt::print("Usage: day01 <input_file>");
+    fmt::print("Usage: day01 <input_file>.\n");
 }
 
 int main(int argc, char* argv[]) {
@@ -21,6 +21,6 @@ int main(int argc, char* argv[]) {
     }
 
     const auto data = readData(input);
-    fmt::print("Day 1 | part 1: {}\n", maxCalories(data, 1));
-    fmt::print("Day 1 | part 2: {}\n", maxCalories(data, 3));
+    fmt::print("Day 1 | part 1: {}\n", sumMaxCalories(data, 1));
+    fmt::print("Day 1 | part 2: {}\n", sumMaxCalories(data, 3));
 }
