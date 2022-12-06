@@ -17,6 +17,11 @@ TEST_CASE( "Day 6" ) {
         { "nppdvjthqldpwncqszvftbrmjlhg", 4, 6 },
         { "nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg", 4, 10 },
         { "zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw", 4, 11 },
+        { "mjqjpqmgbljsphdztnvjfqwrcgsmlb", 14, 19 },
+        { "bvwbjplbgvbhsrlpgdmjqwftvncz", 14, 23 },
+        { "nppdvjthqldpwncqszvftbrmjlhg", 14, 23 },
+        { "nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg", 14, 29 },
+        { "zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw", 14, 26 },
     }));
 
     std::stringstream ss{ input };

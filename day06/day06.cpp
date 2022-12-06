@@ -22,4 +22,5 @@ int main(int argc, char* argv[]) {
 
     const auto data = readData(input);
     fmt::print("Day 6 | part 1: {}\n", startOfPacketMarkerPosition(data, 4));
+    fmt::print("Day 6 | part 2: {}\n", startOfPacketMarkerPosition(data, 14));
 }

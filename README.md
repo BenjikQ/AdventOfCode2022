@@ -5,6 +5,7 @@
 - [x] Day 3
 - [x] Day 4
 - [x] Day 5
+- [x] Day 6
 
 ## Requirements
 - C++ compiler supporting C++20 standard
