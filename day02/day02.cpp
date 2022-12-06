@@ -5,7 +5,7 @@
 #include <fmt/core.h>
 
 void help() {
-    fmt::print("Usage: day02 <input_file>");
+    fmt::print("Usage: day02 <input_file>.\n");
 }
 
 int main(int argc, char* argv[]) {
@@ -21,6 +21,6 @@ int main(int argc, char* argv[]) {
     }
 
     const auto data = readData(input);
-    fmt::print("Day 2 | part 1: {}\n", part1::calculateScore(data));
-    fmt::print("Day 2 | part 2: {}\n", part2::calculateScore(data));
+    fmt::print("Day 2 | part 1: {}\n", calculateScore<MovesStrategy>(data));
+    fmt::print("Day 2 | part 2: {}\n", calculateScore<MoveAndResultStrategy>(data));
 }
