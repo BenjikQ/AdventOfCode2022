@@ -5,14 +5,9 @@
 #include <string>
 #include <vector>
 
-[[nodiscard]] std::vector<std::string> readData(std::istream& is);
+using Data = std::vector<std::string>;
 
-namespace part1 {
-    [[nodiscard]] int sumOfPriorities(const std::vector<std::string>& data);
-}
-
-namespace part2 {
-    [[nodiscard]] int sumOfPriorities(const std::vector<std::string>& data);
-}
+[[nodiscard]] Data readData(std::istream& is);
+[[nodiscard]] int sumOfPriorities(const Data& data, int n);
 
 #endif // ADVENTOFCODE2022_DAY02_LIB_HPP

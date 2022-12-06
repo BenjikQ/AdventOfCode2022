@@ -7,7 +7,6 @@ target_link_libraries(day03 PRIVATE day03_lib fmt::fmt)
 
 add_executable(day03_test day03_test.cpp)
 target_link_libraries(day03_test PRIVATE day03_lib Catch2::Catch2WithMain)
-add_test(NAME day03_test
-         COMMAND day03_test)
+add_test(NAME day03_test COMMAND day03_test)
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/input.txt ${CMAKE_BINARY_DIR}/day03/input.txt)

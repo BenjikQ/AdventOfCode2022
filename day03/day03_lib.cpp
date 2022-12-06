@@ -1,51 +1,49 @@
 #include "day03_lib.hpp"
 
-#include <cctype>
-#include <string>
+#include <iterator>
 
 #include <range/v3/all.hpp>
 
-[[nodiscard]] std::vector<std::string> readData(std::istream& is) {
-    std::vector<std::string> data{};
-    std::string s;
-    while (is >> s) {
-        data.push_back(s);
-    }
+Data readData(std::istream& is) {
+    Data data;
+    data.reserve(500);
+
+    ranges::copy(ranges::istream_view<std::string>(is), std::back_inserter(data));
     return data;
 }
 
-static constexpr int priority(unsigned char c) {
-    return std::islower(c) ? c - 'a' + 1 : c - 'A' + 27;
+[[nodiscard]] static constexpr int priority(unsigned char ch) {
+    return std::islower(ch) ? ch - 'a' + 1 : ch - 'A' + 27;
 }
 
-[[nodiscard]] int part1::sumOfPriorities(const std::vector<std::string>& data) {
+template<typename Range>
+[[nodiscard]] int calculatePriority(Range&& range) {
+    auto rucksacks = range | ranges::to<Data>;
+    ranges::for_each(rucksacks, ranges::sort);
+
+    const auto intersections = ranges::accumulate(rucksacks, rucksacks[0], [](const auto& intersection, const auto& rucksack) {
+       return ranges::view::set_intersection(intersection, rucksack) | ranges::to<std::string>;
+    });
+    return priority(ranges::front(intersections));
+}
+
+[[nodiscard]] int sumOfPriorities(const Data& data) {
     auto rng = data
-            | ranges::view::transform([](const auto& s) {
-                const auto middle = std::next(std::cbegin(s), std::size(s) / 2);
-                const auto c =  ranges::find_first_of(std::cbegin(s), middle,
-                                                      std::next(middle), std::cend(s));
-                return priority(*c);
+            | ranges::view::transform([](auto&& r) {
+                const auto middle = ranges::next(std::cbegin(r), ranges::distance(r) / 2);
+                const auto ch =  *ranges::find_first_of(ranges::cbegin(r), middle,
+                                                       ranges::next(middle), ranges::cend(r));
+                return priority(ch);
             });
     return ranges::accumulate(rng, 0);
 }
 
-
-
-[[nodiscard]] int part2::sumOfPriorities(const std::vector<std::string>& data) {
-    auto rng = data
-                | ranges::view::chunk(3)
-                | ranges::view::transform([](auto&& r) {
-                    auto s1 = r[0];
-                    auto s2 = r[1];
-                    auto s3 = r[2];
-                    ranges::sort(s1);
-                    ranges::sort(s2);
-                    ranges::sort(s3);
-
-                    auto rng1 = ranges::view::set_intersection(s1, s2);
-                    auto rng2 = ranges::view::set_intersection(rng1, s3);
-                    return priority(ranges::front(rng2));
-                });
-
-    return ranges::accumulate(rng, 0);
+int sumOfPriorities(const Data& data, int n) {
+    if (n == 1) {
+        return sumOfPriorities(data);
+    }
+    auto rng = data | ranges::view::chunk(n);
+    return ranges::accumulate(rng, 0, [](auto sum, auto&& rucksacks) {
+       return sum + calculatePriority(rucksacks);
+    });
 }
