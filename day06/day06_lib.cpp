@@ -8,7 +8,7 @@ Data readData(std::istream& is) {
     return data;
 }
 
-int startOfPacketMarkerPosition(const std::string& data, int n) {
+int startOfPacketMarkerPosition(const Data& data, int n) {
     auto rng = data | ranges::view::sliding(n);
     auto position = ranges::find_if(rng, [n](auto&& signal) {
         auto s = signal | ranges::to<std::string>;
